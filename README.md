@@ -8,31 +8,62 @@ Ziglet is a toy microkernel that I am developing, inspired by [Minix3](https://w
 
 The objectives I'm aiming for with Ziglet include:
 
-1. Microkernel Architecture: Create a minimal kernel focused on essential tasks like scheduling, communication, and basic hardware interaction.
+1. **Microkernel Architecture:** Create a minimal kernel focused on essential tasks like scheduling, communication, and basic hardware interaction.
    
-2. Learning: Use Ziglet as hands-on way to understand operating system principles and low-level programming.
+2. **Learning:** Use Ziglet as hands-on way to understand operating system principles and low-level programming.
 
-3. Simplicity: Keep the codebase straightforward and easy to understand, perfect for learning and experimentation.
+3. **Simplicity:** Keep the codebase straightforward and easy to understand, perfect for learning and experimentation.
 
-4. Modularity: Design services that can run in user space, allowing for separation between the core kernel functionality and other system services.
+4. **Modularity:** Design services that can run in user space, allowing for separation between the core kernel functionality and other system services.
 
 ## Getting Started
 
-Since Ziglet is still in the initial stages of development, here's how I plan to get started:
+Before you can build and run Ziglet, you'll need:
 
-1. Set Up the Development Environment:
+- [Zig Latest Version](https://ziglang.org/download/) (v0.13.0 or higher)
+- [QEMU](https://www.qemu.org/download/)
+- [GRUB](https://www.gnu.org/software/grub/grub-download.html)
 
-    - I'll need to install the latest version of the Zig compiler from [ziglang.com](https://ziglang.com).
-    - I might use an emulator like [QEMU](https://www.qemu.org/) to run and test the kernel once I have some code.
+> **_NOTE:_** Make sure to install `xorriso` before attempting to build the ISO:
+```shell
+sudo apt install xorriso
+```
 
-2. Start Coding:
+## Usage
 
-    - I will create the basic structure of the kernel, defining the main entry point and initial setup for the microkernel functionality.
-    - Gradually, I'll implement core features like process management and inter-process communication (IPC).
+1. Clone the repository:
 
-3. Experiment and Iterate:
+    ```shell
+    git clone https://github.com/ezrantn/ziglet.git
+    cd ziglet
+    ```
 
-    - After setting up the initial features, I’ll continue to experiment by adding more complex modules and services like a simple file system or basic networking.
+2. Build the kernel:
+
+    ```shell
+    zig build
+    ```
+
+3. Run with QEMU:
+   
+    ```shell
+    qemu-system-x86_64 -cdrom ziglet.iso -monitor stdio
+    ```
+
+You should now see "Welcome to Ziglet!" displayed in the QEMU window.
+
+### Screenshot
+
+![Welcome to Ziglet](./static/welcome-to-ziglet.png)
+
+## Future Enhancements
+
+This microkernel is still under development, and I am still exploring the following areas:
+
+- Terminal driver implementation
+- Memory management
+- Interrupt handling
+- Process scheduling
 
 ## License
 

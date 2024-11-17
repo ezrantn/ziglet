@@ -2,7 +2,7 @@ const std = @import("std");
 
 // Multiboot header constants
 const MULTIBOOT_MAGIC = 0x1BADB002;
-const MULTIBOOT_FLAGS = 0x0;
+const MULTIBOOT_FLAGS = (1<<0) | (1<<1);
 const MULTIBOOT_CHECKSUM = -(MULTIBOOT_MAGIC + MULTIBOOT_FLAGS);
 
 // Multiboot header structure
@@ -50,13 +50,24 @@ fn vgaEntry(char: u8, fg: VgaColor, bg: VgaColor) u16 {
 export fn _start() callconv(.Naked) noreturn {
     // Set up stack pointer
     asm volatile (
-        \\mov $kernel_stack, %%rsp
-        \\add $16384, %%rsp // Point to top of stack
-    );
-
-    // Jump to kernel_main using direct assembly
-    asm volatile (
-        \\call kernel_main
+        \\.section .text
+        \\jmp _start32
+        
+        \\.align 4
+        \\.code32
+        \\_start32:
+        \\  // Set up stack
+        \\  mov $(kernel_stack + 16384), %esp
+        \\
+        \\  // Clear interrupts
+        \\  cli
+        \\
+        \\  // Call kernel main
+        \\  call kernel_main
+        \\
+        \\1:
+        \\  hlt
+        \\  jmp 1b
     );
 
     // Halt the CPU

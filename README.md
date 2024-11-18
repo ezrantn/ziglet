@@ -23,6 +23,7 @@ Before you can build and run Ziglet, you'll need:
 - [Zig Latest Version](https://ziglang.org/download/) (v0.13.0 or higher)
 - [QEMU](https://www.qemu.org/download/)
 - [GRUB](https://www.gnu.org/software/grub/grub-download.html)
+- [Make](https://www.gnu.org/software/make/)
 
 > **_NOTE:_** Make sure to install `xorriso` before attempting to build the ISO:
 ```shell
@@ -47,7 +48,7 @@ sudo apt install xorriso
 3. Run with QEMU:
    
     ```shell
-    qemu-system-x86_64 -cdrom ziglet.iso -monitor stdio
+    make qemu
     ```
 
 You should now see "Welcome to Ziglet!" displayed in the QEMU window.
